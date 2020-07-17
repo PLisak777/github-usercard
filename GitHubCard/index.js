@@ -30,7 +30,7 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
+const followersArray = ['https://api.github.com/users/PLisak777', 'https://api.github.com/users/tetondan', 'https://api.github.com/users/dustinmyers', 'https://api.github.com/users/justsml', 'https://api.github.com/users/luishrd', 'https://api.github.com/users/bigknell'];
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -100,7 +100,7 @@ const entryPoint = document.querySelector('.cards')
 axios.get('https://api.github.com/users/PLisak777')
     .then((success) => {
         // Handle success
-        // console.log(success)
+        console.log(success)
         followersArray.forEach(user => {
             const newCard = cardCreator(user)
             entryPoint.appendChild(newCard)
