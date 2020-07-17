@@ -17,8 +17,6 @@
     and append the returned markup to the DOM as a child of .cards
 */
 
-
-
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
     follow this link in your browser https://api.github.com/users/<Your github name>/followers,
@@ -56,29 +54,26 @@ const cardCreator = (obj) => {
 
     const card = document.createElement('div')
     card.classList.add('card')
-    card.appendChild(userImg, cardInfo)
 
     const userImg = document.createElement('img')
-    userImg.src = obj.data.avatar_url;
+    userImg.src = obj.avatar_url;
 
     const cardInfo = document.createElement('div')
     cardInfo.classList.add('card-info')
-    cardInfo.appendChild(name, userName, location, profile, followers, following, bio)
 
     const name = document.createElement('h3')
     name.classList.add('name')
-    name.textContent = obj.data.name;
+    name.textContent = obj.name;
 
     const userName = document.createElement('p')
     userName.classList.add('username')
-    userName.textContent = obj.data.login;
+    userName.textContent = obj.login;
 
     const location = document.createElement('p')
-    location.textContent = obj.data.location
+    location.textContent = obj.location
 
     const profile = document.createElement('p')
-    profile.textContent = obj.data.html_url
-    profile.appendChild('address')
+    profile.textContent = obj.html_url
 
     const address = document.createElement('a')
     address.setAttribute('href', 'https://github.com/PLisak777')
@@ -87,29 +82,39 @@ const cardCreator = (obj) => {
     followers.textContent = followersArray
 
     const following = document.createElement('p')
-    followers.textContent = obj.data.following_url
+    followers.textContent = obj.following_url
 
     const bio = document.createElement('p')
-    bio.textContent = obj.data.bio
+    bio.textContent = obj.bio
+
+    card.appendChild(cardInfo)
+    card.appendChild(userImg)
+    cardInfo.appendChild(name)
+    cardInfo.appendChild(userName)
+    cardInfo.appendChild(location)
+    cardInfo.appendChild(profile)
+    profile.appendChild(address)
+    cardInfo.appendChild(followers)
+    cardInfo.appendChild(following)
+    cardInfo.appendChild(bio)
 
     return card
 }
 
 const entryPoint = document.querySelector('.cards')
 
-axios.get('https://api.github.com/users/PLisak777')
-    .then((success) => {
-        // Handle success
-        console.log(success)
-        followersArray.forEach(user => {
+followersArray.forEach((user) => {
+    axios.get(user)
+        .then((success) => {
+            console.log(success)
             const newCard = cardCreator(user)
             entryPoint.appendChild(newCard)
         })
-    })
-    .catch((error) => {
-        // Handle error
-        console.log('error, you dummy!', error)
-    })
+        .catch((error) => {
+            // Handle error
+            console.log('error, you dummy!', error)
+        })
+})
 
 
 /*
