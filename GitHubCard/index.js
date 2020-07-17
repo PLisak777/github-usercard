@@ -17,6 +17,8 @@
     and append the returned markup to the DOM as a child of .cards
 */
 
+
+
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
     follow this link in your browser https://api.github.com/users/<Your github name>/followers,
@@ -28,7 +30,7 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -49,6 +51,66 @@ const followersArray = [];
       </div>
     </div>
 */
+
+const cardCreator = (obj) => {
+
+    const card = document.createElement('div')
+    card.classList.add('card')
+    card.appendChild(userImg, cardInfo)
+
+    const userImg = document.createElement('img')
+    userImg.src = obj.data.avatar_url;
+
+    const cardInfo = document.createElement('div')
+    cardInfo.classList.add('card-info')
+    cardInfo.appendChild(name, userName, location, profile, followers, following, bio)
+
+    const name = document.createElement('h3')
+    name.classList.add('name')
+    name.textContent = obj.data.name;
+
+    const userName = document.createElement('p')
+    userName.classList.add('username')
+    userName.textContent = obj.data.login;
+
+    const location = document.createElement('p')
+    location.textContent = obj.data.location
+
+    const profile = document.createElement('p')
+    profile.textContent = obj.data.html_url
+    profile.appendChild('address')
+
+    const address = document.createElement('a')
+    address.setAttribute('href', 'https://github.com/PLisak777')
+
+    const followers = document.createElement('p')
+    followers.textContent = followersArray
+
+    const following = document.createElement('p')
+    followers.textContent = obj.data.following_url
+
+    const bio = document.createElement('p')
+    bio.textContent = obj.data.bio
+
+    return card
+}
+
+const entryPoint = document.querySelector('.cards')
+
+axios.get('https://api.github.com/users/PLisak777')
+    .then((success) => {
+        // Handle success
+        // console.log(success)
+        followersArray.forEach(user => {
+            const newCard = cardCreator(user)
+            entryPoint.appendChild(newCard)
+        })
+    })
+    .catch((error) => {
+        // Handle error
+        console.log('error, you dummy!', error)
+    })
+
 
 /*
   List of LS Instructors Github username's:
