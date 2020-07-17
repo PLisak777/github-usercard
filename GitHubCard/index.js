@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
@@ -70,28 +72,27 @@ const cardCreator = (obj) => {
     userName.textContent = obj.login;
 
     const location = document.createElement('p')
-    location.textContent = obj.location
+    location.textContent = `Location: ${obj.location}`
 
     const profile = document.createElement('p')
-    profile.textContent = obj.html_url
 
     const address = document.createElement('a')
-    address.setAttribute('href', 'https://github.com/PLisak777')
+    address.setAttribute('href', obj.html_url)
 
     const followers = document.createElement('p')
-    followers.textContent = followersArray
+    followers.textContent = `Followers: ${obj.followers_url}`
 
     const following = document.createElement('p')
-    followers.textContent = obj.following_url
+    followers.textContent = `Following: ${obj.following_url}`
 
     const bio = document.createElement('p')
-    bio.textContent = obj.bio
+    bio.textContent = `Bio: ${obj.bio}`
 
     // Moving appends to AFTER elements have been created avoids that stupid Node error
     card.appendChild(cardInfo)
     card.appendChild(userImg)
-    cardInfo.appendChild(name)
-    cardInfo.appendChild(userName)
+    card.appendChild(name)
+    card.appendChild(userName)
     cardInfo.appendChild(location)
     cardInfo.appendChild(profile)
     profile.appendChild(address)
