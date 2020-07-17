@@ -87,6 +87,7 @@ const cardCreator = (obj) => {
     const bio = document.createElement('p')
     bio.textContent = obj.bio
 
+    // Moving appends to AFTER elements have been created avoids that stupid Node error
     card.appendChild(cardInfo)
     card.appendChild(userImg)
     cardInfo.appendChild(name)
